@@ -88,3 +88,45 @@ RETURNING
 Warehouse Reached
 ↓
 IDLE
+
+# Commit 4 — Verification Against Requirements
+
+## Verification Results
+
+### Check 1 — Invalid Transition
+
+IDLE → DELIVERING is an invalid transition.
+
+It violates R10 because the robot must first receive a delivery request and navigate to the destination.
+
+Required flow:
+
+IDLE → NAVIGATING → DELIVERING
+
+### Check 2 — Missing Transition
+
+If AVOIDING_OBSTACLE has no transition back to NAVIGATING, the robot cannot continue its delivery journey.
+
+Required transition:
+
+AVOIDING_OBSTACLE → NAVIGATING
+
+This satisfies R5.
+
+### Check 3 — Obstacle During Delivery
+
+AVOIDING_OBSTACLE → DELIVERING is not allowed.
+
+The robot must first successfully avoid the obstacle and return to NAVIGATING.
+
+Required flow:
+
+AVOIDING_OBSTACLE → NAVIGATING → DELIVERING
+
+This satisfies R10.
+
+## Verification Conclusion
+
+All valid state transitions were checked against the requirements.
+
+The identified invalid transitions must not be included in the state model.
